@@ -382,7 +382,24 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    var ms = (endDate-startDate);
+    var rounding = Math.pow(10,-10)
+    var month = ms/2592000000.0000005;
+    var days = ms/86400000;
+    var hours = ms/3600000;
+    var minutes = ms/60000;
+    var seconds= ms/1000;
+    if(days > 345 && days<545) return `a year ago`;
+    if(days > 546) return `${endDate.getFullYear()-startDate.getFullYear()} years ago`;
+    if(days>25 && days<=45) return 'a month ago';
+    if(days>=45 && days<=345) return `${Math.round(month-rounding)} months ago`;
+    if(hours>22 && hours<=36) return 'a day ago';
+    if(hours>=36 && hours<=25*24) return (`${Math.round(days-rounding)} days ago`);
+    if(minutes>45 && minutes <=90) return 'an hour ago';
+    if(minutes>=90 && hours <= 22) return `${Math.round(hours-rounding)} hours ago`;
+    if(seconds>45 && seconds<=90) return 'a minute ago';
+    if(seconds>=90&&seconds<=45*60) return `${Math.round(minutes-rounding)} minutes ago`;
+    if(seconds >= 0 && seconds <= 45) return 'a few seconds ago';
 }
 
 
